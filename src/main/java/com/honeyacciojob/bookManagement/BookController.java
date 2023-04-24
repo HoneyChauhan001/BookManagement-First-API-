@@ -11,6 +11,7 @@ import java.util.*;
 import static org.xmlunit.util.Linqy.asList;
 
 @RestController
+@RequestMapping("/book")
 public class BookController {//class which will have our API -> APIs are nothing but methods only
 
     public BookController(){
@@ -20,7 +21,7 @@ public class BookController {//class which will have our API -> APIs are nothing
     @Autowired
     BookService bookService;
 
-    @PostMapping("/add-book") //use this annotation when creating Post API with end point url
+    @PostMapping("/add") //use this annotation when creating Post API with end point url
     public ResponseEntity addBook(@RequestBody Book book){// json
 
         try{
@@ -43,7 +44,7 @@ public class BookController {//class which will have our API -> APIs are nothing
         //return "Book with ID: " + book.getBookId() + " added successfully";
         //return "book added successfully";
     }
-    @GetMapping("/book")//?id = 1
+    @GetMapping("/get")//?id = 1
     public ResponseEntity findBook(@RequestParam int id){
         try{
             Book book = bookService.findBook(id);
@@ -54,7 +55,7 @@ public class BookController {//class which will have our API -> APIs are nothing
             return new ResponseEntity(e.toString(),HttpStatus.valueOf(500));
         }
     }
-    @GetMapping("/books/{id}")//books/1
+    @GetMapping("/get/{id}")//books/1
     public ResponseEntity findBookByParam(@PathVariable int id){
         try{
             Book book = bookService.findBook(id);
@@ -80,7 +81,7 @@ public class BookController {//class which will have our API -> APIs are nothing
 ////        }
 ////        return list;
 //    }
-    @PutMapping("/update-book/{id}")
+    @PutMapping("/update/{id}")
     public String updateBook(@PathVariable int id, @RequestParam(required = false) String title, @RequestParam(required = false) String author, @RequestParam(required = false) Integer pages){
             try {
                 String response = bookService.updateBook(id, title, author, pages);
@@ -89,7 +90,7 @@ public class BookController {//class which will have our API -> APIs are nothing
                 return e.toString();
             }
     }
-    @DeleteMapping("/remove-book/{id}")
+    @DeleteMapping("/remove/{id}")
     public ResponseEntity deleteBook(@PathVariable int id){
 
         try{
