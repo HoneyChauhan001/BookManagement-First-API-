@@ -1,10 +1,18 @@
 package com.honeyacciojob.bookManagement;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 import java.util.Optional;
-
+@Service
 public class BookService {
-    BookRepository bookRepository = new BookRepository();
+
+    public BookService(){
+        System.out.println("BookService is Instantiated");
+    }
+    @Autowired
+    BookRepository bookRepository;
     public Boolean addBook(Book book) throws BookAlreadyExistException{
         Optional<Book> bookOpt = bookRepository.getById(book.getBookId());
         if(bookOpt.isPresent()){//bookId already exists

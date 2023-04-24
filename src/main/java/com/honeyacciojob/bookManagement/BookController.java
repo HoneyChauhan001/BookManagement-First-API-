@@ -1,5 +1,6 @@
 package com.honeyacciojob.bookManagement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,12 @@ import static org.xmlunit.util.Linqy.asList;
 @RestController
 public class BookController {//class which will have our API -> APIs are nothing but methods only
 
-    BookService bookService = new BookService();
+    public BookController(){
+        System.out.println("BookController is Instantiated");
+    }
+
+    @Autowired
+    BookService bookService;
 
     @PostMapping("/add-book") //use this annotation when creating Post API with end point url
     public ResponseEntity addBook(@RequestBody Book book){// json
